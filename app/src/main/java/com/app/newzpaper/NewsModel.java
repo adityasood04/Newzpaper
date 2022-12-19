@@ -7,14 +7,28 @@ public class NewsModel {
     String time;
     String imageUrl;
     String detailedUrl;
+    String authorName;
 
-    public NewsModel(String heading, String description, String date, String time, String imageUrl, String detailedUrl) {
+    public void setDetailedUrl(String detailedUrl) {
+        this.detailedUrl = detailedUrl;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public NewsModel(String heading, String description, String date, String time, String imageUrl, String detailedUrl, String authorName) {
         this.heading = heading;
         this.description = description;
         this.date = date;
         this.time = time;
         this.imageUrl = imageUrl;
         this.detailedUrl = detailedUrl;
+        this.authorName = authorName;
     }
 
     public String getDetailedUrl() {

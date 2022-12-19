@@ -27,6 +27,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var progressBar:ProgressBar
     lateinit var detailsLL: LinearLayout
     lateinit var readMoreTV: TextView
+    lateinit var authorTV: TextView
     val url = "https://inshorts.deta.dev/news?category=sports"
     lateinit var rcv:RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         detailsDescriptionTV = findViewById(R.id.detailsDescriptionTV)
         detailsImageIV = findViewById(R.id.detailsImageIV)
         detailsBackBtn = findViewById(R.id.detailsBackBtn)
+        authorTV = findViewById(R.id.authorTV)
 
         detailsBackBtn.setOnClickListener(View.OnClickListener {
             rcv.visibility = View.VISIBLE
@@ -73,6 +75,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
                         newsJsonObject.getString("time"),
                         newsJsonObject.getString("imageUrl"),
                         newsJsonObject.getString("readMoreUrl"),
+                        newsJsonObject.getString("author")
                     )
                     newsArray.add(news)
                 }
@@ -98,10 +101,11 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         progressBar.visibility = View.GONE
         detailsLL.visibility = View.VISIBLE
         Log.i("adi", item.heading)
+        Picasso.get().load(item.imageUrl).into(detailsImageIV)
         detailsHeadingTV.text = item.heading
         detailsDescriptionTV.text = item.description
-        Picasso.get().load(item.imageUrl).into(detailsImageIV)
 
+        authorTV.text = "- ${item.authorName}"
 
     }
 }

@@ -53,20 +53,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ImageView
-            android:id="@+id/detailsBackBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="3dp"
-            android:src="@drawable/ic_launcher_background"
-            android:scaleType="centerCrop"/>
-        <ImageView
-            android:id="@+id/detailsImageIV"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="3dp"
-            android:src="@drawable/ic_launcher_background"
-            android:scaleType="centerCrop"/>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/detailsImageIV"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="3dp"
+                android:src="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop"/>
+            <ImageView
+                android:id="@+id/detailsBackBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="7dp"
+                android:src="@drawable/back"/>
+        </FrameLayout>
+
         <TextView
             android:id="@+id/detailsHeadingTV"
             android:layout_width="match_parent"
@@ -75,6 +80,21 @@
             android:layout_marginHorizontal="5dp"
             android:textSize="22sp"
             android:text="Heading"/>
+
+
+            <TextView
+                android:id="@+id/authorTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:layout_gravity="end"
+                android:paddingVertical="2dp"
+                android:text="Author"
+                android:textSize="14sp"
+                android:layout_marginEnd="10dp"/>
+
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

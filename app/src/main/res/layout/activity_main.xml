@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/news" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,12 +39,14 @@
 
     </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/getStartedBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get Stared"
-        android:paddingHorizontal="50dp"
+            android:text="GET STARTED"
+        android:textColor="@color/white"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="40dp"
         android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
