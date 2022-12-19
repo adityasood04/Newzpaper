@@ -19,14 +19,14 @@ import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 
 class NewsActivity : AppCompatActivity(), NewsItemClicked {
-    lateinit var adapter:NewsAdapter
-    lateinit var progressBar:ProgressBar
-    lateinit var detailsLL: LinearLayout
-    lateinit var readMoreTV: TextView
     lateinit var detailsHeadingTV: TextView
     lateinit var detailsDescriptionTV: TextView
     lateinit var detailsImageIV: ImageView
     lateinit var detailsBackBtn: ImageView
+    lateinit var adapter:NewsAdapter
+    lateinit var progressBar:ProgressBar
+    lateinit var detailsLL: LinearLayout
+    lateinit var readMoreTV: TextView
     val url = "https://inshorts.deta.dev/news?category=sports"
     lateinit var rcv:RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
