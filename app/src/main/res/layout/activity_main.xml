@@ -17,21 +17,24 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/news" />
+            android:src="@drawable/icon3" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome to"
             android:layout_gravity="center"
             android:textSize="28dp"
-            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Newzpaper"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
             android:textColor="@color/red"
             android:layout_gravity="center"
             android:textSize="36dp"
@@ -43,15 +46,15 @@
         android:id="@+id/getStartedBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-            android:text="GET STARTED"
+        android:layout_marginBottom="128dp"
+        android:background="@drawable/btn_bg"
+        android:paddingHorizontal="50dp"
+        android:paddingVertical="15dp"
+        android:text="GET STARTED"
         android:textColor="@color/white"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="40dp"
-        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/btn_bg"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

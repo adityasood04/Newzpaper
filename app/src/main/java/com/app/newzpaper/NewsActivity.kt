@@ -1,14 +1,13 @@
 package com.app.newzpaper
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -28,7 +27,8 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var detailsLL: LinearLayout
     lateinit var readMoreTV: TextView
     lateinit var authorTV: TextView
-    val url = "https://inshorts.deta.dev/news?category=sports"
+     var isDetailsOpened: Boolean  = false
+    val url = "https://inshorts.deta.dev/news?category=science"
     lateinit var rcv:RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             rcv.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
             detailsLL.visibility = View.GONE
+            readMoreTV.visibility = View.GONE
 
         })
 
@@ -88,8 +89,10 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
                 e.printStackTrace()
             }
         }, Response.ErrorListener {
+            progressBar.visibility = View.GONE
             Toast.makeText(this, "Fail to get response", Toast.LENGTH_SHORT)
                 .show()
+            finish()
         })
         queue.add(request)
 
@@ -97,6 +100,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
     }
 
     override fun onItemClicked(item: NewsModel) {
+        isDetailsOpened = true
         rcv.visibility = View.GONE
         progressBar.visibility = View.GONE
         detailsLL.visibility = View.VISIBLE
@@ -104,8 +108,29 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         Picasso.get().load(item.imageUrl).into(detailsImageIV)
         detailsHeadingTV.text = item.heading
         detailsDescriptionTV.text = item.description
-
         authorTV.text = "- ${item.authorName}"
+        readMoreTV.visibility=View.VISIBLE
+        readMoreTV.setOnClickListener(View.OnClickListener {
+            val url = item.detailedUrl
+            val builder = CustomTabsIntent.Builder()
+            val customTabsIntent: CustomTabsIntent = builder.build()
+            customTabsIntent.launchUrl(this, Uri.parse(url))
+        })
 
     }
+    override fun onBackPressed(){
+        if(isDetailsOpened){
+            rcv.visibility = View.VISIBLE
+            detailsLL.visibility = View.GONE
+            readMoreTV.visibility=View.GONE
+            isDetailsOpened=false
+        }
+        else{
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+
+
 }
