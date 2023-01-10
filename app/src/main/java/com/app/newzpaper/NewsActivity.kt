@@ -1,6 +1,8 @@
 package com.app.newzpaper
 
+import CategoriesAdapter
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -23,12 +25,20 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var detailsImageIV: ImageView
     lateinit var detailsBackBtn: ImageView
     lateinit var adapter:NewsAdapter
+    lateinit var categoriesAdapter:CategoriesAdapter
     lateinit var progressBar:ProgressBar
     lateinit var detailsLL: LinearLayout
     lateinit var readMoreTV: TextView
     lateinit var authorTV: TextView
+    lateinit var categories_rv : RecyclerView
      var isDetailsOpened: Boolean  = false
-    val url = "https://inshorts.deta.dev/news?category=science"
+     lateinit var categories:Array<String>
+    val url1 = "https://inshorts.deta.dev/news?category=politics"
+    val url2 = "https://inshorts.deta.dev/news?category=national"
+    val url3 = "https://inshorts.deta.dev/news?category=business"
+    val url4 = "https://inshorts.deta.dev/news?category=science"
+    val url5 = "https://inshorts.deta.dev/news?category=sports"
+    lateinit var url:String
     lateinit var rcv:RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +51,12 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         detailsImageIV = findViewById(R.id.detailsImageIV)
         detailsBackBtn = findViewById(R.id.detailsBackBtn)
         authorTV = findViewById(R.id.authorTV)
+        categories_rv = findViewById(R.id.categories_rv)
+        rcv = findViewById(R.id.newsRCV)
 
         detailsBackBtn.setOnClickListener(View.OnClickListener {
             rcv.visibility = View.VISIBLE
+            categories_rv.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
             detailsLL.visibility = View.GONE
             readMoreTV.visibility = View.GONE
@@ -51,17 +64,43 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         })
 
 
-
+        categories  = arrayOf("Home", "National", "Business", "Science", "Sports")
         progressBar.visibility = View.VISIBLE
-
-        rcv = findViewById(R.id.newsRCV)
+        categories_rv.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL,false)
         rcv.layoutManager = LinearLayoutManager(this)
-        fetchNews()
+        fetchNews(url3)
         adapter = NewsAdapter(this)
         rcv.adapter = adapter
+        categoriesAdapter = CategoriesAdapter(categories,object:CategoriesAdapter.Listener{
+            override fun categoryClicked(index: Int) {
+                rcv.visibility=View.GONE
+                progressBar.visibility = View.VISIBLE
+                Log.i("adi", index.toString())
+                when(index){
+                    0-> {fetchNews(url1)
+                    }
+
+                    1-> fetchNews(url2)
+                    2-> fetchNews(url3)
+                    3-> fetchNews(url4)
+                    4-> fetchNews(url5)
+                }
+
+
+            }
+        })
+        categories_rv.adapter = categoriesAdapter
+
+
+
     }
 
-    private fun fetchNews() {
+    private fun setUI(tv:TextView) {
+        tv.setTextColor(Color.RED)
+
+    }
+
+    private fun fetchNews(url:String) {
         val queue :RequestQueue = Volley.newRequestQueue(this)
         val request = JsonObjectRequest(Request.Method.GET,url,null,{response->
             try {
@@ -82,6 +121,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
                 }
                 adapter.updateNews(newsArray)
                 progressBar.visibility = View.GONE
+                rcv.visibility=View.VISIBLE
 
 
             }
