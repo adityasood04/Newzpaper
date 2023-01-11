@@ -38,6 +38,7 @@ class NewsAdapter(val listener: NewsItemClicked) : RecyclerView.Adapter<NewsView
         notifyDataSetChanged()
     }
 }
+
 interface  NewsItemClicked{
     fun onItemClicked(item:NewsModel)
 }

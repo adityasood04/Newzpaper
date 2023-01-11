@@ -1,3 +1,4 @@
+import android.graphics.Color
 import android.location.GnssAntennaInfo.Listener
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,7 @@ class CategoriesAdapter(private val dataSet: Array<String>, private val catListe
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        var textView: TextView
 
         init {
             // Define click listener for the ViewHolder's View
@@ -20,7 +21,7 @@ class CategoriesAdapter(private val dataSet: Array<String>, private val catListe
         }
     }
     interface  Listener{
-        fun categoryClicked(index:Int)
+        fun categoryClicked(index:Int, textView: TextView)
     }
 
     // Create new views (invoked by the layout manager)
@@ -42,7 +43,9 @@ class CategoriesAdapter(private val dataSet: Array<String>, private val catListe
         // contents of the view with that element
         viewHolder.textView.text = dataSet[position]
         viewHolder.textView.setOnClickListener(View.OnClickListener {
-                catListener.categoryClicked(position)
+
+                catListener.categoryClicked(position, textView = viewHolder.textView)
+
         })
 
     }

@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
         val thread = Thread(){
             kotlin.run {
                 try {
-                    Thread.sleep(4000)
+                    Thread.sleep(2000)
                 }
                 catch (e:Exception){
                     e.printStackTrace()

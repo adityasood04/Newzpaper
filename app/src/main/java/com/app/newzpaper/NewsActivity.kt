@@ -18,6 +18,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
+import kotlin.random.Random
 
 class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var detailsHeadingTV: TextView
@@ -30,7 +31,13 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var detailsLL: LinearLayout
     lateinit var readMoreTV: TextView
     lateinit var authorTV: TextView
-    lateinit var categories_rv : RecyclerView
+    lateinit var homeTV: TextView
+    lateinit var nationalTV: TextView
+    lateinit var sportsTV: TextView
+    lateinit var politicsTV: TextView
+    lateinit var businessTV: TextView
+    lateinit var scienceTV: TextView
+    lateinit var scrollView: HorizontalScrollView
      var isDetailsOpened: Boolean  = false
      lateinit var categories:Array<String>
     val url1 = "https://inshorts.deta.dev/news?category=politics"
@@ -51,52 +58,105 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         detailsImageIV = findViewById(R.id.detailsImageIV)
         detailsBackBtn = findViewById(R.id.detailsBackBtn)
         authorTV = findViewById(R.id.authorTV)
-        categories_rv = findViewById(R.id.categories_rv)
+        homeTV = findViewById(R.id.homeTV)
+        scienceTV = findViewById(R.id.scienceTV)
+        politicsTV = findViewById(R.id.politicsTV)
+        businessTV = findViewById(R.id.businessTV)
+        nationalTV = findViewById(R.id.nationalTV)
+        sportsTV = findViewById(R.id.sportsTV)
         rcv = findViewById(R.id.newsRCV)
+        scrollView = findViewById(R.id.scrollView)
+        scrollView.isHorizontalScrollBarEnabled = false;
 
+        url = url4
         detailsBackBtn.setOnClickListener(View.OnClickListener {
             rcv.visibility = View.VISIBLE
-            categories_rv.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
             detailsLL.visibility = View.GONE
             readMoreTV.visibility = View.GONE
 
         })
 
-
-        categories  = arrayOf("Home", "National", "Business", "Science", "Sports")
-        progressBar.visibility = View.VISIBLE
-        categories_rv.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL,false)
         rcv.layoutManager = LinearLayoutManager(this)
-        fetchNews(url3)
         adapter = NewsAdapter(this)
         rcv.adapter = adapter
-        categoriesAdapter = CategoriesAdapter(categories,object:CategoriesAdapter.Listener{
-            override fun categoryClicked(index: Int) {
-                rcv.visibility=View.GONE
-                progressBar.visibility = View.VISIBLE
-                Log.i("adi", index.toString())
-                when(index){
-                    0-> {fetchNews(url1)
-                    }
-
-                    1-> fetchNews(url2)
-                    2-> fetchNews(url3)
-                    3-> fetchNews(url4)
-                    4-> fetchNews(url5)
-                }
+        fetchNews(url3)
+        setListeners()
 
 
-            }
-        })
-        categories_rv.adapter = categoriesAdapter
 
 
 
     }
 
-    private fun setUI(tv:TextView) {
-        tv.setTextColor(Color.RED)
+    private fun setListeners() {
+        homeTV.setOnClickListener(View.OnClickListener {
+            progressBar.visibility = View.VISIBLE
+            rcv.visibility = View.GONE
+            fetchNews(url3)
+            homeTV.setTextColor(Color.RED)
+            scienceTV.setTextColor(Color.BLACK)
+            politicsTV.setTextColor(Color.BLACK)
+            nationalTV.setTextColor(Color.BLACK)
+            sportsTV.setTextColor(Color.BLACK)
+            businessTV.setTextColor(Color.BLACK)
+        })
+        scienceTV.setOnClickListener(View.OnClickListener {
+            progressBar.visibility = View.VISIBLE
+            rcv.visibility = View.GONE
+            homeTV.setTextColor(Color.BLACK)
+            scienceTV.setTextColor(Color.RED)
+            politicsTV.setTextColor(Color.BLACK)
+            nationalTV.setTextColor(Color.BLACK)
+            sportsTV.setTextColor(Color.BLACK)
+            businessTV.setTextColor(Color.BLACK)
+            fetchNews(url4)
+        })
+        politicsTV.setOnClickListener(View.OnClickListener {
+            progressBar.visibility = View.VISIBLE
+            rcv.visibility = View.GONE
+            homeTV.setTextColor(Color.BLACK)
+            scienceTV.setTextColor(Color.BLACK)
+            politicsTV.setTextColor(Color.RED)
+            nationalTV.setTextColor(Color.BLACK)
+            sportsTV.setTextColor(Color.BLACK)
+            businessTV.setTextColor(Color.BLACK)
+            fetchNews(url1)
+        })
+        nationalTV.setOnClickListener(View.OnClickListener {
+            progressBar.visibility = View.VISIBLE
+            rcv.visibility = View.GONE
+            homeTV.setTextColor(Color.BLACK)
+            scienceTV.setTextColor(Color.BLACK)
+            politicsTV.setTextColor(Color.BLACK)
+            nationalTV.setTextColor(Color.RED)
+            sportsTV.setTextColor(Color.BLACK)
+            businessTV.setTextColor(Color.BLACK)
+            fetchNews(url2)
+        })
+        sportsTV.setOnClickListener(View.OnClickListener {
+            progressBar.visibility = View.VISIBLE
+            rcv.visibility = View.GONE
+            homeTV.setTextColor(Color.BLACK)
+            scienceTV.setTextColor(Color.BLACK)
+            politicsTV.setTextColor(Color.BLACK)
+            nationalTV.setTextColor(Color.BLACK)
+            sportsTV.setTextColor(Color.RED)
+            businessTV.setTextColor(Color.BLACK)
+            fetchNews(url5)
+        })
+        businessTV.setOnClickListener(View.OnClickListener {
+            rcv.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+            homeTV.setTextColor(Color.BLACK)
+            scienceTV.setTextColor(Color.BLACK)
+            politicsTV.setTextColor(Color.BLACK)
+            nationalTV.setTextColor(Color.BLACK)
+            sportsTV.setTextColor(Color.BLACK)
+            businessTV.setTextColor(Color.RED)
+            fetchNews(url3)
+        })
+
 
     }
 

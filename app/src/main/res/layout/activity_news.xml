@@ -20,10 +20,65 @@
             android:textColor="@color/red"
             android:textAlignment="center"
             android:layout_marginBottom="4dp"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categories_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
+            <HorizontalScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/homeTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:paddingHorizontal="5dp"
+                    android:text="Home"/>
+                <TextView
+                    android:id="@+id/nationalTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:paddingHorizontal="5dp"
+                    android:text="National"/>
+                <TextView
+                    android:id="@+id/politicsTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:paddingHorizontal="5dp"
+                    android:text="Politics"/>
+                <TextView
+                    android:id="@+id/sportsTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:paddingHorizontal="5dp"
+
+                    android:text="Sports"/>
+                <TextView
+                    android:id="@+id/businessTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:paddingHorizontal="5dp"
+                    android:text="Business"/>
+                    <TextView
+                    android:id="@+id/scienceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:paddingHorizontal="5dp"
+                    android:text="Science"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:visibility="visible"
