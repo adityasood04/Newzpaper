@@ -37,7 +37,7 @@
             android:textStyle="bold"
             android:textColor="@color/red"
             android:layout_gravity="center"
-            android:textSize="36dp"
+            android:textSize="40dp"
             />
 
     </LinearLayout>
@@ -51,6 +51,7 @@
         android:paddingHorizontal="50dp"
         android:paddingVertical="15dp"
         android:text="GET STARTED"
+        android:textSize="18sp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

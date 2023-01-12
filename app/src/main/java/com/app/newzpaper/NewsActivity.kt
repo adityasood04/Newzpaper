@@ -1,10 +1,10 @@
 package com.app.newzpaper
 
-import CategoriesAdapter
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -18,7 +18,6 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
-import kotlin.random.Random
 
 class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var detailsHeadingTV: TextView
@@ -26,7 +25,6 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var detailsImageIV: ImageView
     lateinit var detailsBackBtn: ImageView
     lateinit var adapter:NewsAdapter
-    lateinit var categoriesAdapter:CategoriesAdapter
     lateinit var progressBar:ProgressBar
     lateinit var detailsLL: LinearLayout
     lateinit var readMoreTV: TextView
@@ -81,6 +79,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         adapter = NewsAdapter(this)
         rcv.adapter = adapter
         fetchNews(url3)
+        homeTV.setTextColor(Color.RED)
         setListeners()
 
 
@@ -91,6 +90,8 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
 
     private fun setListeners() {
         homeTV.setOnClickListener(View.OnClickListener {
+            val html = "<u>Home</u>"
+            homeTV.text = Html.fromHtml(html)
             progressBar.visibility = View.VISIBLE
             rcv.visibility = View.GONE
             fetchNews(url3)
