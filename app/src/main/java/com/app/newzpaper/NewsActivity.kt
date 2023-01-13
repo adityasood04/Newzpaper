@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -35,9 +36,17 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
     lateinit var politicsTV: TextView
     lateinit var businessTV: TextView
     lateinit var scienceTV: TextView
+    lateinit var refresh: SwipeRefreshLayout
     lateinit var scrollView: HorizontalScrollView
      var isDetailsOpened: Boolean  = false
      lateinit var categories:Array<String>
+     var isHomeOpened = false
+    var isNationalOpen = false
+    var isPoliticsOpen = false
+    var isSportsOpen = false
+    var isBusinessOpen = false
+    var isScienceOpen = false
+
     val url1 = "https://inshorts.deta.dev/news?category=politics"
     val url2 = "https://inshorts.deta.dev/news?category=national"
     val url3 = "https://inshorts.deta.dev/news?category=business"
@@ -63,6 +72,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         nationalTV = findViewById(R.id.nationalTV)
         sportsTV = findViewById(R.id.sportsTV)
         rcv = findViewById(R.id.newsRCV)
+        refresh = findViewById(R.id.refresh)
         scrollView = findViewById(R.id.scrollView)
         scrollView.isHorizontalScrollBarEnabled = false;
 
@@ -80,18 +90,59 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
         rcv.adapter = adapter
         fetchNews(url3)
         homeTV.setTextColor(Color.RED)
+        val html = "<u>Home</u>"
+        homeTV.text = Html.fromHtml(html)
         setListeners()
 
+        refresh.setOnRefreshListener {
+            if(isHomeOpened) {
+                rcv.visibility = View.GONE
+                fetchNews(url3)
+            }
 
-
-
-
+            if(isBusinessOpen){
+                rcv.visibility = View.GONE
+                fetchNews(url3)
+            }
+            if(isPoliticsOpen) {
+                rcv.visibility = View.GONE
+                fetchNews(url1)
+            }
+            if(isScienceOpen) {
+                rcv.visibility = View.GONE
+                fetchNews(url4)
+            }
+            if(isNationalOpen) {
+                rcv.visibility = View.GONE
+                fetchNews(url2)
+            }
+            if(isSportsOpen) {
+                rcv.visibility = View.GONE
+                fetchNews(url5)
+            }
+        }
     }
 
     private fun setListeners() {
         homeTV.setOnClickListener(View.OnClickListener {
+            isHomeOpened = true
+            isBusinessOpen = false
+            isScienceOpen = false
+            isNationalOpen = false
+            isPoliticsOpen = false
+            isSportsOpen = false
             val html = "<u>Home</u>"
             homeTV.text = Html.fromHtml(html)
+            val html2 = "Science"
+            scienceTV.text = Html.fromHtml(html2)
+            val html3 = "Politics"
+            politicsTV.text = Html.fromHtml(html3)
+            val html4 = "National"
+            nationalTV.text = Html.fromHtml(html4)
+            val html5 = "Sports"
+            sportsTV.text = Html.fromHtml(html5)
+            val html6 = "Business"
+            businessTV.text = Html.fromHtml(html6)
             progressBar.visibility = View.VISIBLE
             rcv.visibility = View.GONE
             fetchNews(url3)
@@ -103,6 +154,24 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             businessTV.setTextColor(Color.BLACK)
         })
         scienceTV.setOnClickListener(View.OnClickListener {
+            isHomeOpened = false
+            isBusinessOpen = false
+            isScienceOpen = true
+            isNationalOpen = false
+            isPoliticsOpen = false
+            isSportsOpen = false
+            val html = "Home"
+            homeTV.text = Html.fromHtml(html)
+            val html2 = "<u>Science</u>"
+            scienceTV.text = Html.fromHtml(html2)
+            val html3 = "Politics"
+            politicsTV.text = Html.fromHtml(html3)
+            val html4 = "National"
+            nationalTV.text = Html.fromHtml(html4)
+            val html5 = "Sports"
+            sportsTV.text = Html.fromHtml(html5)
+            val html6 = "Business"
+            businessTV.text = Html.fromHtml(html6)
             progressBar.visibility = View.VISIBLE
             rcv.visibility = View.GONE
             homeTV.setTextColor(Color.BLACK)
@@ -114,6 +183,24 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             fetchNews(url4)
         })
         politicsTV.setOnClickListener(View.OnClickListener {
+            isHomeOpened = false
+            isBusinessOpen = false
+            isScienceOpen = false
+            isNationalOpen = false
+            isPoliticsOpen = true
+            isSportsOpen = false
+            val html = "Home"
+            homeTV.text = Html.fromHtml(html)
+            val html2 = "Science"
+            scienceTV.text = Html.fromHtml(html2)
+            val html3 = "<u>Politics</u>"
+            politicsTV.text = Html.fromHtml(html3)
+            val html4 = "National"
+            nationalTV.text = Html.fromHtml(html4)
+            val html5 = "Sports"
+            sportsTV.text = Html.fromHtml(html5)
+            val html6 = "Business"
+            businessTV.text = Html.fromHtml(html6)
             progressBar.visibility = View.VISIBLE
             rcv.visibility = View.GONE
             homeTV.setTextColor(Color.BLACK)
@@ -125,6 +212,24 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             fetchNews(url1)
         })
         nationalTV.setOnClickListener(View.OnClickListener {
+            isHomeOpened = false
+            isBusinessOpen = false
+            isScienceOpen = false
+            isNationalOpen = true
+            isPoliticsOpen = false
+            isSportsOpen = false
+            val html = "Home"
+            homeTV.text = Html.fromHtml(html)
+            val html2 = "Science"
+            scienceTV.text = Html.fromHtml(html2)
+            val html3 = "Politics"
+            politicsTV.text = Html.fromHtml(html3)
+            val html4 = "<u>National</u>"
+            nationalTV.text = Html.fromHtml(html4)
+            val html5 = "Sports"
+            sportsTV.text = Html.fromHtml(html5)
+            val html6 = "Business"
+            businessTV.text = Html.fromHtml(html6)
             progressBar.visibility = View.VISIBLE
             rcv.visibility = View.GONE
             homeTV.setTextColor(Color.BLACK)
@@ -136,6 +241,24 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             fetchNews(url2)
         })
         sportsTV.setOnClickListener(View.OnClickListener {
+            isHomeOpened = false
+            isBusinessOpen = false
+            isScienceOpen = false
+            isNationalOpen = false
+            isPoliticsOpen = false
+            isSportsOpen = true
+            val html = "Home"
+            homeTV.text = Html.fromHtml(html)
+            val html2 = "Science"
+            scienceTV.text = Html.fromHtml(html2)
+            val html3 = "Politics"
+            politicsTV.text = Html.fromHtml(html3)
+            val html4 = "National"
+            nationalTV.text = Html.fromHtml(html4)
+            val html5 = "<u>Sports</u>"
+            sportsTV.text = Html.fromHtml(html5)
+            val html6 = "Business"
+            businessTV.text = Html.fromHtml(html6)
             progressBar.visibility = View.VISIBLE
             rcv.visibility = View.GONE
             homeTV.setTextColor(Color.BLACK)
@@ -147,6 +270,24 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             fetchNews(url5)
         })
         businessTV.setOnClickListener(View.OnClickListener {
+            isHomeOpened = false
+            isBusinessOpen = true
+            isScienceOpen = false
+            isNationalOpen = false
+            isPoliticsOpen = false
+            isSportsOpen = false
+            val html = "Home"
+            homeTV.text = Html.fromHtml(html)
+            val html2 = "Science"
+            scienceTV.text = Html.fromHtml(html2)
+            val html3 = "Politics"
+            politicsTV.text = Html.fromHtml(html3)
+            val html4 = "National"
+            nationalTV.text = Html.fromHtml(html4)
+            val html5 = "Sports"
+            sportsTV.text = Html.fromHtml(html5)
+            val html6 = "<u>Business</u>"
+            businessTV.text = Html.fromHtml(html6)
             rcv.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
             homeTV.setTextColor(Color.BLACK)
@@ -183,6 +324,7 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
                 adapter.updateNews(newsArray)
                 progressBar.visibility = View.GONE
                 rcv.visibility=View.VISIBLE
+                refresh.isRefreshing = false
 
 
             }
@@ -196,8 +338,6 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             finish()
         })
         queue.add(request)
-
-
     }
 
     override fun onItemClicked(item: NewsModel) {
@@ -217,7 +357,6 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             val customTabsIntent: CustomTabsIntent = builder.build()
             customTabsIntent.launchUrl(this, Uri.parse(url))
         })
-
     }
     override fun onBackPressed(){
         if(isDetailsOpened){
@@ -231,7 +370,4 @@ class NewsActivity : AppCompatActivity(), NewsItemClicked {
             startActivity(intent)
         }
     }
-
-
-
 }
