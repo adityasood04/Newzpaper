@@ -1,5 +1,13 @@
 # Newzpaper
 
+## Currently under development‼️
+### New features will be:
+#### Implementing fragments and viewpager for categories. 
+
+
+
+## Previous Version of app:
+
 It is a simple news app created in Android Studio.
 It is created in KOTLIN.
 
